@@ -19,21 +19,21 @@ class UntiFactory {
   public create(unitName: UnitName) {
     switch (unitName) {
       case UNIT_NAMES.SKELETON:
-        return new Unit(UNIT_TYPES.MELEE, 100, 25, 50);
+        return new Unit(UNIT_NAMES.SKELETON, UNIT_TYPES.MELEE, 100, 25, 50);
       case UNIT_NAMES.CENTAUR:
-        return new Unit(UNIT_TYPES.MELEE, 150, 50, 50);
+        return new Unit(UNIT_NAMES.CENTAUR, UNIT_TYPES.MELEE, 150, 50, 50);
       case UNIT_NAMES.BANDIT:
-        return new Unit(UNIT_TYPES.RANGE, 45, 30, 60);
+        return new Unit(UNIT_NAMES.BANDIT, UNIT_TYPES.RANGE, 45, 30, 60);
       case UNIT_NAMES.ELF_ARCHER:
-        return new Unit(UNIT_TYPES.RANGE, 90, 40, 60);
+        return new Unit(UNIT_NAMES.ELF_ARCHER, UNIT_TYPES.RANGE, 90, 40, 60);
       case UNIT_NAMES.SKELETON_MAGE:
-        return new Unit(UNIT_TYPES.MAGE, 50, 20, 40);
+        return new Unit(UNIT_NAMES.SKELETON_MAGE, UNIT_TYPES.MAGE, 50, 20, 40);
       case UNIT_NAMES.ARCHIMAGE:
-        return new Unit(UNIT_TYPES.MAGE, 90, 40, 40);
+        return new Unit(UNIT_NAMES.ARCHIMAGE, UNIT_TYPES.MAGE, 90, 40, 40);
       case UNIT_NAMES.MONK:
-        return new HealerUnit(70, 40, 20);
+        return new HealerUnit(UNIT_NAMES.MONK, 70, 40, 20);
       case UNIT_NAMES.SIRENA:
-        return new ParalyzerUnit(80, 0, 20);
+        return new ParalyzerUnit(UNIT_NAMES.SIRENA, 80, 0, 20);
     }
   }
 }
