@@ -1,29 +1,40 @@
-// import Unit, { UNIT_TYPES } from '../src/core/Unit';
-import UnitFactory, { UNIT_NAMES } from '../src/core/UnitFactory';
+// import BattleField from '../src/core/BattleField';
+import Unit, { UNIT_TYPES } from '../src/core/Unit';
+import MageUnit from '../src/core/MageUnit';
+import Target from '../src/core/Target';
 
-const unitFactory = new UnitFactory();
+// test('init BattleField', () => {
+//   const battleField = new BattleField(5, 6);
+//   console.log(battleField.getField());
+//   console.log('lol');
+// });
 
-test('Monk heal centaur', () => {
-  const centaur = unitFactory.create(UNIT_NAMES.CENTAUR);
-  const monk = unitFactory.create(UNIT_NAMES.MONK);
+test('Attack single target', () => {
+  const unit = new Unit('Simple Unit', UNIT_TYPES.MELEE, 100, 10, 10);
+  const targetUnit = new Unit('Simple Unit', UNIT_TYPES.MELEE, 100, 10, 10);
+  const targetUnit2 = new Unit('Simple Unit', UNIT_TYPES.MELEE, 100, 10, 10);
 
-  centaur.dealDamage(monk.getDamage());
-  const action = monk.getActions().get('Heal');
-  if (action) {
-    action.execute(centaur);
-  }
+  unit.action(new Target([targetUnit, targetUnit2]));
 
-  expect(centaur.getHealth()).toBe(centaur.getMaxHealth());
+  expect(targetUnit.getHealth()).toBe(
+    targetUnit.getMaxHealth() - unit.getDamage(),
+  );
+
+  expect(targetUnit2.getHealth()).toBe(targetUnit2.getMaxHealth());
 });
 
-test('hz', () => {
-  const centaur = unitFactory.create(UNIT_NAMES.CENTAUR);
-  const monk = unitFactory.create(UNIT_NAMES.MONK);
-  const sirena = unitFactory.create(UNIT_NAMES.SIRENA);
+test('Attack multiple targets', () => {
+  const mage = new MageUnit('Simple Unit', 100, 10, 10);
+  const targetUnit = new Unit('Simple Unit', UNIT_TYPES.MELEE, 100, 10, 10);
+  const targetUnit2 = new Unit('Simple Unit', UNIT_TYPES.MELEE, 100, 10, 10);
 
-  console.log(centaur.getActions().entries());
-  console.log(monk.getActions().entries());
-  console.log(sirena.getActions().entries());
+  mage.action(new Target([targetUnit, targetUnit2]));
 
-  expect(true).toBe(true);
+  expect(targetUnit.getHealth()).toBe(
+    targetUnit.getMaxHealth() - mage.getDamage(),
+  );
+
+  expect(targetUnit2.getHealth()).toBe(
+    targetUnit2.getMaxHealth() - mage.getDamage(),
+  );
 });

@@ -6,10 +6,14 @@ class Battle {
   private secondTeam: Team;
   private battleField: BattleField;
 
-  public constructor(firstTeam: Team, secondTeam: Team) {
+  public constructor(
+    battlefield: BattleField,
+    firstTeam: Team,
+    secondTeam: Team,
+  ) {
     this.firstTeam = firstTeam;
     this.secondTeam = secondTeam;
-    this.battleField = new BattleField();
+    this.battleField = battlefield;
   }
 }
 

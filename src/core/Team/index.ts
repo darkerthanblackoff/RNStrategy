@@ -10,6 +10,10 @@ class Team {
   public getUnits() {
     return this.units;
   }
+
+  public addUnit(unit: Unit) {
+    this.units.push(unit);
+  }
 }
 
 export default Team;

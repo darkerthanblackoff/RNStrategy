@@ -1,5 +1,6 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import Action from '../Action';
+import { IParalyzable } from '../interfaces';
+import Target from '../Target';
 
 class ParalyzerUnit extends Unit {
   public constructor(
@@ -9,13 +10,12 @@ class ParalyzerUnit extends Unit {
     initiative: number,
   ) {
     super(name, UNIT_TYPES.PARALYZER, health, damage, initiative);
+  }
 
-    const paralyzeAction = new Action<Unit>(enemy => {
-      enemy.setParalyzed(true);
+  public action(enemy: Target) {
+    enemy.execute((_enemy: IParalyzable) => {
+      _enemy.setParalyzed(true);
     });
-
-    super.getActions().delete('Attack');
-    super.addAction('Paralyze', paralyzeAction);
   }
 }
 

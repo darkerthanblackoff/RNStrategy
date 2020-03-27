@@ -1,4 +1,6 @@
-import Action from '../Action';
+import Target from '../Target';
+import { IDamageDealable } from '../interfaces';
+
 export enum UNIT_TYPES {
   MELEE = 'melee',
   RANGE = 'range',
@@ -18,9 +20,6 @@ class Unit {
   protected initiative: number;
   protected paralyzed: boolean;
   protected defending: boolean;
-  protected actions: Map<string, Action<any>>;
-  protected x: number;
-  protected y: number;
 
   public constructor(
     name: string,
@@ -37,96 +36,71 @@ class Unit {
     this.initiative = initiative;
     this.paralyzed = false;
     this.defending = false;
-    this.x = 0;
-    this.y = 0;
-    this.actions = new Map();
-    this.actions.set(
-      'Defend',
-      new Action<void>(() => {
-        this.defending = true;
-      }),
-    );
-    this.actions.set(
-      'Attack',
-      new Action<Unit>(enemy => {
-        enemy.dealDamage(this.damage);
-      }),
-    );
-    this.actions.set(
-      'Move',
-      new Action<{ x: number; y: number }>(({ x, y }) => {
-        this.x = x;
-        this.y = y;
-      }),
-    );
   }
 
-  public addAction(name: string, action: Action<any>) {
-    if (this.actions.has(name)) {
-      throw Error(`${this.type} already have action "${name}"`);
-    }
-
-    this.actions.set(name, action);
+  public action(target: Target) {
+    target.execute((_target: IDamageDealable) => {
+      _target.dealDamage(this.damage);
+    });
   }
 
-  public getType() {
+  public getType = () => {
     return this.type;
-  }
+  };
 
-  public getHealth() {
+  public getHealth = () => {
     return this.health;
-  }
+  };
 
-  public dealDamage(damage: number) {
+  public dealDamage = (damage: number) => {
     if (damage < 0 && this.health - damage > this.maxHealth) {
       this.health = this.maxHealth;
     } else {
-      this.health -= damage;
+      this.health -= this.defending ? damage / 2 : damage;
     }
-  }
+  };
 
-  public getDamage() {
+  public getDamage = () => {
     return this.damage;
-  }
+  };
 
-  public getInitiative() {
+  public getInitiative = () => {
     return this.initiative;
-  }
+  };
 
-  public isAlive() {
-    return this.health >= 0;
-  }
+  public isAlive = () => {
+    return this.health > 0;
+  };
 
-  public isParalyzed() {
+  public isParalyzed = () => {
     return this.paralyzed;
-  }
+  };
 
-  public setParalyzed(value: boolean) {
+  public setParalyzed = (value: boolean) => {
     this.paralyzed = value;
-  }
+  };
 
-  public isDefending() {
+  public isDefending = () => {
     return this.defending;
-  }
+  };
 
-  public setDefending(value: boolean) {
+  public setDefending = (value: boolean) => {
     this.defending = value;
-  }
+  };
 
-  public getShortName() {
+  public getShortName = () => {
     const words = this.name.split(' ');
     return words.length > 1
-      ? words.map(word => word[0].toUpperCase()).toString()
-      : words[0][0];
-  }
+      ? words
+          .map(word => word[0].toUpperCase())
+          .toString()
+          .replace(',', '')
+      : words.toString().slice(0, 2);
+  };
 
-  public getActions() {
-    return this.actions;
-  }
-
-  public getMaxHealth() {
+  public getMaxHealth = () => {
     return this.maxHealth;
-  }
+  };
 }
 
 export default Unit;
