@@ -1,11 +1,11 @@
-class Target {
-  private targets: any;
+class Target<T> {
+  private targets: T | T[];
 
-  public constructor(targets: any) {
+  public constructor(targets: T | T[]) {
     this.targets = targets;
   }
 
-  public execute(action: (target: any) => void) {
+  public execute(action: (target: T) => void) {
     if (Array.isArray(this.targets)) {
       action(this.targets[0]);
     } else {
@@ -13,7 +13,7 @@ class Target {
     }
   }
 
-  public executeForAll(action: (target: any) => void) {
+  public executeForAll(action: (target: T) => void) {
     if (Array.isArray(this.targets)) {
       this.targets.forEach(_target => action(_target));
     } else {

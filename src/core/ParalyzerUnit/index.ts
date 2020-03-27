@@ -1,6 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import { IParalyzable } from '../interfaces';
-import Target from '../Target';
+import { ITarget, IParalyzable } from '../interfaces';
 
 class ParalyzerUnit extends Unit {
   public constructor(
@@ -12,8 +11,8 @@ class ParalyzerUnit extends Unit {
     super(name, UNIT_TYPES.PARALYZER, health, damage, initiative);
   }
 
-  public action(enemy: Target) {
-    enemy.execute((_enemy: IParalyzable) => {
+  public action(enemy: ITarget<IParalyzable>) {
+    enemy.execute(_enemy => {
       _enemy.setParalyzed(true);
     });
   }

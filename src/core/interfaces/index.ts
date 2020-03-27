@@ -1,3 +1,3 @@
-import { IDamageDealable } from './IDamageDealable';
-import { IParalyzable } from './IParalyzable';
-export { IDamageDealable, IParalyzable };
+export { IDamageDealable } from './IDamageDealable';
+export { IParalyzable } from './IParalyzable';
+export { ITarget } from './ITarget';

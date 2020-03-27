@@ -1,6 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import Target from '../Target';
-import { IDamageDealable } from '../interfaces';
+import { ITarget, IDamageDealable } from '../interfaces';
 
 class MageUnit extends Unit {
   public constructor(
@@ -12,8 +11,8 @@ class MageUnit extends Unit {
     super(name, UNIT_TYPES.MAGE, health, damage, initiative);
   }
 
-  public action(targets: Target) {
-    targets.executeForAll((target: IDamageDealable) => {
+  public action(targets: ITarget<IDamageDealable>) {
+    targets.executeForAll(target => {
       target.dealDamage(this.damage);
     });
   }

@@ -1,6 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import { IDamageDealable } from '../interfaces';
-import Target from '../Target';
+import { ITarget, IDamageDealable } from '../interfaces';
 
 class HealerUnit extends Unit {
   public constructor(
@@ -12,8 +11,8 @@ class HealerUnit extends Unit {
     super(name, UNIT_TYPES.HEALER, health, damage, initiative);
   }
 
-  public action(comrade: Target) {
-    comrade.execute((_comrade: IDamageDealable) => {
+  public action(comrade: ITarget<IDamageDealable>) {
+    comrade.execute(_comrade => {
       _comrade.dealDamage(this.damage * -1);
     });
   }

@@ -1,5 +1,4 @@
-import Target from '../Target';
-import { IDamageDealable } from '../interfaces';
+import { ITarget, IDamageDealable } from '../interfaces';
 
 export enum UNIT_TYPES {
   MELEE = 'melee',
@@ -38,7 +37,7 @@ class Unit {
     this.defending = false;
   }
 
-  public action(target: Target) {
+  public action(target: ITarget<any>) {
     target.execute((_target: IDamageDealable) => {
       _target.dealDamage(this.damage);
     });
