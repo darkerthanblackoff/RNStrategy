@@ -1,5 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import { ITarget, IParalyzable } from '../interfaces';
+import { ITarget, IParalyzable } from '../../interfaces';
 
 class ParalyzerUnit extends Unit {
   public constructor(

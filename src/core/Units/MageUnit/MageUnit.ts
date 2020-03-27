@@ -1,5 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
-import { ITarget, IDamageDealable } from '../interfaces';
+import { ITarget, IDamageDealable } from '../../interfaces';
 
 class MageUnit extends Unit {
   public constructor(

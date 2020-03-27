@@ -1,4 +1,4 @@
-import { ITarget, IDamageDealable } from '../interfaces';
+import { ITarget, IDamageDealable } from '../../interfaces';
 
 export enum UNIT_TYPES {
   MELEE = 'melee',

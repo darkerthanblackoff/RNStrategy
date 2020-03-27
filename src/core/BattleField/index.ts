@@ -1,4 +1,4 @@
-import Unit from '../Unit';
+import { Unit } from '../Units';
 
 class BattleFieldCell {
   private item: Unit | null;

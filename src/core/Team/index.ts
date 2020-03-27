@@ -1,4 +1,4 @@
-import Unit from '../Unit';
+import { Unit } from '../Units';
 
 class Team {
   private units: Array<Unit>;
