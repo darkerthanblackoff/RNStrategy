@@ -19,6 +19,8 @@ class Unit {
   protected initiative: number;
   protected paralyzed: boolean;
   protected defending: boolean;
+  protected x: number;
+  protected y: number;
 
   public constructor(
     name: string,
@@ -35,6 +37,8 @@ class Unit {
     this.initiative = initiative;
     this.paralyzed = false;
     this.defending = false;
+    this.x = 0;
+    this.y = 0;
   }
 
   public action(target: ITarget<any>) {
@@ -99,6 +103,32 @@ class Unit {
 
   public getMaxHealth = () => {
     return this.maxHealth;
+  };
+
+  public setX = (x: number) => {
+    if (x < 0) {
+      throw Error('Value must be positive number!');
+    }
+    this.x = x;
+  };
+
+  public setY = (y: number) => {
+    if (y < 0) {
+      throw Error('Value must be positive number!');
+    }
+    this.y = y;
+  };
+
+  public setPosition = (x: number, y: number) => {
+    if (x < 0 || y < 0) {
+      throw Error('Values must be positive number!');
+    }
+    this.x = x;
+    this.y = y;
+  };
+
+  public getPosition = () => {
+    return { x: this.x, y: this.y };
   };
 }
 
