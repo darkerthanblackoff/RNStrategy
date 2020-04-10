@@ -15,6 +15,7 @@ export const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: 'green',
   },
   bar: {
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create<Style>({
     width: '100%',
   },
   battleField: {
-    flex: 8,
+    height: 500,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,9 +42,9 @@ export const styles = StyleSheet.create<Style>({
     width: '100%',
   },
   unitsBar: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'red',
+    height: 80,
     width: '100%',
   },
 });

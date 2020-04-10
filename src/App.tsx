@@ -66,7 +66,7 @@ class App extends Component<IProps, IState> {
   }
 
   private _renderTeam(team: Team | null) {
-    const { currentUnit } = this.state;
+    const { currentUnit, battle } = this.state;
 
     return team
       ? team
@@ -75,7 +75,7 @@ class App extends Component<IProps, IState> {
             <UnitCard
               key={index}
               label={unit.getShortName()}
-              color={team.getColor()}
+              color={battle.getTeamByUnit(unit).getColor()}
               highlighted={unit === currentUnit}
             />
           ))
@@ -206,13 +206,13 @@ class App extends Component<IProps, IState> {
               <View>
                 <Button title="move" onPress={() => this._moveAction()} />
                 <Button title="defend" onPress={() => this._defendAction()} />
-                <Button title="attack" onPress={() => this._attackAction()} />
+                <Button title="action" onPress={() => this._attackAction()} />
               </View>
             </View>
           </View>
         )}
 
-        <Button title="skip" onPress={() => this._nextTurn()} />
+        <Button title="next" onPress={() => this._nextTurn()} />
         <View style={styles.unitsBar}>{this._renderTeam(globalTeam)}</View>
       </View>
     );
