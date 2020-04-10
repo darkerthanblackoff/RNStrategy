@@ -65,6 +65,25 @@ class App extends Component<IProps, IState> {
     };
   }
 
+  private _newGame() {
+    const first = new Team(getRandomUnitsSet(6), 'blue');
+    const second = new Team(getRandomUnitsSet(6), 'red');
+    const battleField = new BattleField(5, 6);
+    const battle = new Battle(battleField, first, second);
+
+    this.setState({
+      firstTeam: first,
+      secondTeam: second,
+      battleField,
+      currentUnit: battle.getGlobalTeam().getCurrent(),
+      currentTeam: battle.getCurrentTeam(),
+      battle: battle,
+      selectedCell: { X: 0, Y: 0 },
+      curAction: null,
+      globalTeam: battle.getGlobalTeam(),
+    });
+  }
+
   private _renderTeam(team: Team | null) {
     const { currentUnit, battle } = this.state;
 
@@ -189,6 +208,9 @@ class App extends Component<IProps, IState> {
 
     return (
       <View style={styles.container}>
+        <View>
+          <Button onPress={() => this._newGame()} title="Start new game" />
+        </View>
         <View style={styles.battleField}>{this._renderField()}</View>
         {currentUnit && (
           <View style={styles.bar}>
