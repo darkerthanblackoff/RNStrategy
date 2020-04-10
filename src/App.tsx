@@ -230,28 +230,32 @@ class App extends Component<IProps, IState> {
           </View>
         )}
         <View style={styles.battleField}>{this._renderField()}</View>
-        {currentUnit && (
-          <View style={styles.bar}>
-            <View style={styles.specsBar}>
-              <Text style={styles.specsRow}>SPECS:</Text>
-              <Text style={styles.specsRow}>Type: {currentUnit.getType()}</Text>
-              <Text style={styles.specsRow}>
-                Health: {currentUnit.getHealth()}/{currentUnit.getMaxHealth()}
-              </Text>
-              <Text style={styles.specsRow}>
-                Damage: {currentUnit.getDamage()}
-              </Text>
-            </View>
-            <View style={styles.actionsBar}>
-              <View>
-                <Button title="move" onPress={() => this._moveAction()} />
-                <Button title="defend" onPress={() => this._defendAction()} />
-                <Button title="action" onPress={() => this._attackAction()} />
-              </View>
-            </View>
-          </View>
-        )}
 
+        <View style={styles.bar}>
+          {currentUnit && (
+            <>
+              <View style={styles.specsBar}>
+                <Text style={styles.specsRow}>SPECS:</Text>
+                <Text style={styles.specsRow}>
+                  Type: {currentUnit.getType()}
+                </Text>
+                <Text style={styles.specsRow}>
+                  Health: {currentUnit.getHealth()}/{currentUnit.getMaxHealth()}
+                </Text>
+                <Text style={styles.specsRow}>
+                  Damage: {currentUnit.getDamage()}
+                </Text>
+              </View>
+              <View style={styles.actionsBar}>
+                <View>
+                  <Button title="move" onPress={() => this._moveAction()} />
+                  <Button title="defend" onPress={() => this._defendAction()} />
+                  <Button title="action" onPress={() => this._attackAction()} />
+                </View>
+              </View>
+            </>
+          )}
+        </View>
         <Button title="next" onPress={() => this._nextTurn()} />
         <View style={styles.unitsBar}>{this._renderTeam(globalTeam)}</View>
       </View>

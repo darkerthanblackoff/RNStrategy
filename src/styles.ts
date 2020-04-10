@@ -21,6 +21,7 @@ export const styles = StyleSheet.create<Style>({
   bar: {
     flexDirection: 'row',
     width: '100%',
+    height: 100,
   },
   battleField: {
     height: 500,
