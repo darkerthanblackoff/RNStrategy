@@ -7,6 +7,7 @@ class Battle {
   private secondTeam: Team;
   private battleField: BattleField;
   private currentTeam: Team;
+  private globalTeam: Team;
 
   public constructor(
     battlefield: BattleField,
@@ -20,20 +21,24 @@ class Battle {
     this.initialPlaceUnits();
     this.firstTeam.sortUnits();
     this.secondTeam.sortUnits();
+    this.globalTeam = new Team(
+      [...firstTeam.getUnits(), ...secondTeam.getUnits()],
+      'white',
+    );
+    this.globalTeam.sortUnits();
   }
 
   public turn = () => {
     this.battleField.unhighlighteAll();
-    const curUnit = this.currentTeam.getNext();
+    const curUnit = this.globalTeam.getNext();
     if (curUnit === null) {
-      this.currentTeam.getUnits().forEach(_unit => {
+      this.globalTeam.getUnits().forEach(_unit => {
         _unit.setParalyzed(false);
       });
-      this.changeCurrentTeam();
-      this.currentTeam.getUnits().forEach(_unit => {
+      this.globalTeam.getUnits().forEach(_unit => {
         _unit.setDefending(false);
       });
-      this.currentTeam.sortUnits();
+      this.globalTeam.sortUnits();
     }
   };
 
@@ -47,6 +52,10 @@ class Battle {
 
   public getCurrentTeam = () => {
     return this.currentTeam;
+  };
+
+  public getGlobalTeam = () => {
+    return this.globalTeam;
   };
 
   public changeCurrentTeam = () => {
@@ -159,7 +168,9 @@ class Battle {
     }
 
     cells.forEach(cell => {
-      cell.setHighlight(true);
+      if (cell && cell.getItem() && cell.getItem()!.isAlive()) {
+        cell.setHighlight(true);
+      }
     });
   };
 }

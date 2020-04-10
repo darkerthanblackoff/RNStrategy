@@ -35,6 +35,7 @@ interface IState {
   currentTeam: Team;
   firstTeam: Team;
   secondTeam: Team;
+  globalTeam: Team;
   battleField: BattleField;
   currentUnit: Unit;
   battle: Battle;
@@ -50,18 +51,17 @@ class App extends Component<IProps, IState> {
     const second = new Team(getRandomUnitsSet(6), 'red');
     const battleField = new BattleField(5, 6);
     const battle = new Battle(battleField, first, second);
-    battle.turn();
-    battle.turn();
 
     this.state = {
       firstTeam: first,
       secondTeam: second,
       battleField,
-      currentUnit: battle.getCurrentTeam().getCurrent(),
+      currentUnit: battle.getGlobalTeam().getCurrent(),
       currentTeam: battle.getCurrentTeam(),
       battle: battle,
       selectedCell: { X: 0, Y: 0 },
       curAction: null,
+      globalTeam: battle.getGlobalTeam(),
     };
   }
 
@@ -155,7 +155,8 @@ class App extends Component<IProps, IState> {
       battle,
       battleField: battle.getBattleField(),
       currentTeam: battle.getCurrentTeam(),
-      currentUnit: battle.getCurrentTeam().getCurrent(),
+      currentUnit: battle.getGlobalTeam().getCurrent(),
+      globalTeam: battle.getGlobalTeam(),
     });
   }
 
@@ -184,7 +185,7 @@ class App extends Component<IProps, IState> {
   }
 
   public render() {
-    const { currentTeam, currentUnit } = this.state;
+    const { globalTeam, currentUnit } = this.state;
 
     return (
       <View style={styles.container}>
@@ -212,7 +213,7 @@ class App extends Component<IProps, IState> {
         )}
 
         <Button title="skip" onPress={() => this._nextTurn()} />
-        <View style={styles.unitsBar}>{this._renderTeam(currentTeam)}</View>
+        <View style={styles.unitsBar}>{this._renderTeam(globalTeam)}</View>
       </View>
     );
   }
