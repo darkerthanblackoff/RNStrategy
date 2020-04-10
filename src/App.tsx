@@ -36,6 +36,7 @@ interface IState {
   firstTeam: Team;
   secondTeam: Team;
   globalTeam: Team;
+  winner: Team | null;
   battleField: BattleField;
   currentUnit: Unit;
   battle: Battle;
@@ -62,6 +63,7 @@ class App extends Component<IProps, IState> {
       selectedCell: { X: 0, Y: 0 },
       curAction: null,
       globalTeam: battle.getGlobalTeam(),
+      winner: null,
     };
   }
 
@@ -81,6 +83,7 @@ class App extends Component<IProps, IState> {
       selectedCell: { X: 0, Y: 0 },
       curAction: null,
       globalTeam: battle.getGlobalTeam(),
+      winner: null,
     });
   }
 
@@ -176,6 +179,7 @@ class App extends Component<IProps, IState> {
       currentTeam: battle.getCurrentTeam(),
       currentUnit: battle.getGlobalTeam().getCurrent(),
       globalTeam: battle.getGlobalTeam(),
+      winner: battle.getWinnerTeam(),
     });
   }
 
@@ -204,13 +208,27 @@ class App extends Component<IProps, IState> {
   }
 
   public render() {
-    const { globalTeam, currentUnit } = this.state;
+    const { globalTeam, currentUnit, winner } = this.state;
 
     return (
       <View style={styles.container}>
         <View>
           <Button onPress={() => this._newGame()} title="Start new game" />
         </View>
+        {winner && (
+          <View>
+            <View
+              style={{
+                backgroundColor: winner.getColor(),
+                height: 50,
+                width: 50,
+                flexDirection: 'row',
+                marginRight: 10,
+              }}
+            />
+            <Text style={{ color: 'white' }}>team wins</Text>
+          </View>
+        )}
         <View style={styles.battleField}>{this._renderField()}</View>
         {currentUnit && (
           <View style={styles.bar}>

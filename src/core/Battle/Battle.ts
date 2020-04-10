@@ -8,6 +8,7 @@ class Battle {
   private battleField: BattleField;
   private currentTeam: Team;
   private globalTeam: Team;
+  private winnerTeam: Team | null;
 
   public constructor(
     battlefield: BattleField,
@@ -26,19 +27,28 @@ class Battle {
       'white',
     );
     this.globalTeam.sortUnits();
+    this.winnerTeam = null;
   }
 
   public turn = () => {
     this.battleField.unhighlighteAll();
-    const curUnit = this.globalTeam.getNext();
-    if (curUnit === null) {
-      this.globalTeam.getUnits().forEach(_unit => {
-        _unit.setParalyzed(false);
-      });
-      this.globalTeam.getUnits().forEach(_unit => {
-        _unit.setDefending(false);
-      });
-      this.globalTeam.sortUnits();
+    if (!this.firstTeam.hasAlive()) {
+      this.winnerTeam = this.secondTeam;
+    }
+    if (!this.secondTeam.hasAlive()) {
+      this.winnerTeam = this.firstTeam;
+    }
+    if (!this.winnerTeam) {
+      const curUnit = this.globalTeam.getNext();
+      if (curUnit === null) {
+        this.globalTeam.getUnits().forEach(_unit => {
+          _unit.setParalyzed(false);
+        });
+        this.globalTeam.getUnits().forEach(_unit => {
+          _unit.setDefending(false);
+        });
+        this.globalTeam.sortUnits();
+      }
     }
   };
 
@@ -56,6 +66,10 @@ class Battle {
 
   public getGlobalTeam = () => {
     return this.globalTeam;
+  };
+
+  public getWinnerTeam = () => {
+    return this.winnerTeam;
   };
 
   public changeCurrentTeam = () => {
