@@ -26,10 +26,9 @@ test('HZ2', () => {
   const blue = new Team(getRandomUnitsSet(5), 'blue');
   blue.addUnit(new Unit('name', UNIT_TYPES.MELEE, 0, 0, 10));
   const red = new Team(getRandomUnitsSet(6), 'red');
-
-  const battle = new Battle(new BattleField(5, 6), blue, red);
-
-  console.log(battle.getBattleField().getField()[0]);
+  const field = new BattleField(5, 6);
+  const battle = new Battle(field, blue, red);
+  // console.log(field.getField()[field.getField().length - 1]);
 });
 
 test('HZ3', () => {

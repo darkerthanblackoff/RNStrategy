@@ -61,6 +61,10 @@ class Unit {
     } else {
       this.health -= this.defending ? damage / 2 : damage;
     }
+    if (this.health < 0) {
+      this.health = 0;
+    }
+    this.defending = false;
   };
 
   public getDamage = () => {
@@ -80,6 +84,9 @@ class Unit {
   };
 
   public setParalyzed = (value: boolean) => {
+    if (this.defending && !value) {
+      return;
+    }
     this.paralyzed = value;
   };
 
@@ -92,7 +99,12 @@ class Unit {
   };
 
   public getShortName = () => {
+    if (!this.isAlive()) {
+      return 'X';
+    }
+
     const words = this.name.split(' ');
+
     return words.length > 1
       ? words
           .map(word => word[0].toUpperCase())

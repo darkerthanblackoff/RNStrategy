@@ -36,18 +36,27 @@ class Team {
     this.units.push(unit);
   };
 
-  public getNext = (init?: boolean): Unit | null => {
-    if (this.currentUnit === this.units.length || !this.hasAlive()) {
+  public getNext = (): Unit | null => {
+    let unit: Unit | null = this.units[this.currentUnit];
+
+    this.currentUnit += 1;
+    if (this.currentUnit - 1 === this.units.length) {
       this.currentUnit = 0;
       return null;
-    } else {
-      if (!this.units[this.currentUnit].isAlive() && !init) {
-        this.currentUnit += 1;
-        return null;
-      }
-      this.currentUnit += 1;
-      return this.units[this.currentUnit - 1];
     }
+    if (
+      this.units[this.currentUnit] &&
+      (!this.units[this.currentUnit].isAlive() ||
+        this.units[this.currentUnit].isParalyzed())
+    ) {
+      unit = this.getNext();
+    }
+
+    return unit;
+  };
+
+  public getCurrent = () => {
+    return this.units[this.currentUnit];
   };
 
   public hasAlive = () => {
@@ -63,6 +72,23 @@ class Team {
 
   public getUnits = () => {
     return this.units;
+  };
+
+  public isUnitFromTeam = (unit: Unit) => {
+    let answer = false;
+    this.units.forEach(_unit => {
+      if (_unit === unit) {
+        answer = true;
+      }
+    });
+
+    return answer;
+  };
+
+  public turnEnd = () => {
+    this.units.forEach(unit => {
+      unit.setDefending(false);
+    });
   };
 }
 

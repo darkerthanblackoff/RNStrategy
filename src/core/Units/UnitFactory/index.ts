@@ -1,4 +1,5 @@
 import Unit, { UNIT_TYPES } from '../Unit';
+import MageUnit from '../MageUnit';
 import HealerUnit from '../HealerUnit';
 import ParalyzerUnit from '../ParalyzerUnit';
 
@@ -27,9 +28,9 @@ class UntiFactory {
       case UNIT_NAMES.ELF_ARCHER:
         return new Unit(UNIT_NAMES.ELF_ARCHER, UNIT_TYPES.RANGE, 90, 40, 60);
       case UNIT_NAMES.SKELETON_MAGE:
-        return new Unit(UNIT_NAMES.SKELETON_MAGE, UNIT_TYPES.MAGE, 50, 20, 40);
+        return new MageUnit(UNIT_NAMES.SKELETON_MAGE, 50, 20, 40);
       case UNIT_NAMES.ARCHIMAGE:
-        return new Unit(UNIT_NAMES.ARCHIMAGE, UNIT_TYPES.MAGE, 90, 40, 40);
+        return new MageUnit(UNIT_NAMES.ARCHIMAGE, 90, 40, 40);
       case UNIT_NAMES.MONK:
         return new HealerUnit(UNIT_NAMES.MONK, 70, 40, 20);
       case UNIT_NAMES.SIRENA:

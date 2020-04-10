@@ -1,2 +1,3 @@
-import BattleField from './BattleField';
+import BattleField, { BattleFieldCell } from './BattleField';
+export { BattleFieldCell };
 export default BattleField;

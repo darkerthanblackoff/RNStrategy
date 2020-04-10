@@ -21,8 +21,13 @@ const getRandomUnitsSet = (count: number) => {
 };
 
 test('HZ', () => {
-  const blue = new Team(getRandomUnitsSet(5), 'blue');
-  blue.addUnit(new Unit('name', UNIT_TYPES.MELEE, 0, 0, 10));
+  const blue = new Team([], 'blue');
+  blue.addUnit(new Unit('2', UNIT_TYPES.MELEE, 10, 0, 10));
+  blue.addUnit(new Unit('2', UNIT_TYPES.MELEE, 10, 0, 10));
+  blue.addUnit(new Unit('3', UNIT_TYPES.MELEE, 10, 0, 10));
+  blue.addUnit(new Unit('4', UNIT_TYPES.MELEE, 10, 0, 10));
+  blue.addUnit(new Unit('5', UNIT_TYPES.MELEE, 10, 0, 10));
+  blue.addUnit(new Unit('6', UNIT_TYPES.MELEE, 10, 0, 10));
 
   const red = new Team(getRandomUnitsSet(6), 'red');
   const deads = new Team(
@@ -30,14 +35,12 @@ test('HZ', () => {
     'black',
   );
 
-  // console.log(red);
-  // let current = null;
-  // let i = 1;
-  // while ((current = red.getNext())) {
+  let unit = null;
+  while ((unit = blue.getNext())) {
+    console.log(unit);
+  }
+  // for (let i = 0; i < blue.getUnits().length; i++) {
   //   console.log(i);
-  //   console.log(current);
-  //   i += 1;
+  //   console.log(blue.getNext());
   // }
-  // console.log(red.hasAlive());
-  // console.log(deads.hasAlive());
 });
